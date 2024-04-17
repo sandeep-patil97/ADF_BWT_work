@@ -1,0 +1,104 @@
+{
+	"name": "pl_copy_csv_data",
+	"properties": {
+		"description": "To copy csv from src to dest.",
+		"activities": [
+			{
+				"name": "act_copy_csv_data",
+				"description": "This will copy the csv file from source to destination.",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "file_nm",
+								"value": "$$FILENAME"
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_storage_csv_source",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_nm": "adf-practice",
+							"directory_nm": "input",
+							"file_nm": "Emp.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_storage_csv_sink_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"sink_directory_nm": {
+								"value": "@pipeline().parameters.sink_directory_nm",
+								"type": "Expression"
+							},
+							"file_delimiter": {
+								"value": "@pipeline().parameters.file_delimiter",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"sink_directory_nm": {
+				"type": "string",
+				"defaultValue": "csv_output"
+			},
+			"file_delimiter": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "session1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-25T13:22:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

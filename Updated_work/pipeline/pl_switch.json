@@ -1,0 +1,106 @@
+{
+	"name": "pl_switch",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_switch_session",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@pipeline().parameters.session_nm",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "Azure",
+							"activities": [
+								{
+									"name": "Set variable1",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "session_nm_var",
+										"value": {
+											"value": "@pipeline().parameters.session_nm",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "aws",
+							"activities": [
+								{
+									"name": "Set variable2",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "session_nm_var2",
+										"value": {
+											"value": "@pipeline().parameters.session_nm",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					],
+					"defaultActivities": [
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "session_nm_var3",
+								"value": {
+									"value": "@pipeline().parameters.session_nm",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"session_nm": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"session_nm_var": {
+				"type": "String"
+			},
+			"session_nm_var2": {
+				"type": "String"
+			},
+			"session_nm_var3": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "session1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-26T11:18:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
