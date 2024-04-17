@@ -1,0 +1,19 @@
+{
+	"name": "db_delete_assignment",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_bwtsession",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Marathi.txt",
+				"container": "bollywood"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

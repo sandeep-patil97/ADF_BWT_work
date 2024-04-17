@@ -1,0 +1,103 @@
+{
+	"name": "pl_iteration_foreach_ifCond_generic",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_foreach_test",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.lst2",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "act_if_cond_check_value",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(string(item()),pipeline().parameters.check_variable)",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "act_append_lst",
+										"description": "To append each item from input list.",
+										"type": "AppendVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "new_lst3",
+											"value": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "act_set_display",
+				"description": "To display the list.",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "act_foreach_test",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "new_lst_display",
+					"value": {
+						"value": "@variables('new_lst3')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"lst2": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			},
+			"check_variable": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"new_lst3": {
+				"type": "Array"
+			},
+			"new_lst_display": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "session1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-29T13:28:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

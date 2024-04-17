@@ -1,0 +1,56 @@
+{
+	"name": "pl_web_nested_deep",
+	"properties": {
+		"activities": [
+			{
+				"name": "set_act_current_dt",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "curr_date",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "set_act_current_dt",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://datausa.io/api/data?drilldowns=Nation&measures=Population"
+				}
+			}
+		],
+		"variables": {
+			"curr_date": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-29T11:33:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

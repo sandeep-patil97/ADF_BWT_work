@@ -1,0 +1,18 @@
+{
+	"name": "db_delete_bwtsession",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_bwtsession",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "session-related"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

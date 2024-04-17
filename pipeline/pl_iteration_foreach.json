@@ -1,0 +1,91 @@
+{
+	"name": "pl_iteration_foreach",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_foreach_test",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.lst",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "act_append_var_list",
+							"type": "AppendVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "new_lst2",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "act_set_array_display",
+				"description": "To display the array which is set.",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "act_foreach_test",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "new_test_array",
+					"value": {
+						"value": "@variables('new_lst2')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"lst": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			}
+		},
+		"variables": {
+			"new_lst2": {
+				"type": "Array"
+			},
+			"new_test_array": {
+				"type": "Array"
+			},
+			"new_lst3": {
+				"type": "Array"
+			},
+			"new_lst_display": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "session1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-29T13:28:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

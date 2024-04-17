@@ -1,0 +1,25 @@
+{
+	"name": "trigger_test",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_trigger_check",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2024-03-29T10:23:00",
+				"endTime": "2024-03-30T10:23:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"name": "pl_trigger_check",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_set_var_current_dt",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "current_dt",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"current_dt": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-29T11:21:56Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "adfnewbwtsession",
+	"properties": {
+		"globalParameters": {
+			"environment_name": {
+				"type": "string",
+				"value": "dev"
+			}
+		}
+	},
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "16aa6f8b-1e32-4770-b2ae-2d529a7b722f",
+		"tenantId": "aa0b5741-586a-4309-8247-b83ee41c6e9c"
+	}
+}
